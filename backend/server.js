@@ -7,7 +7,7 @@ import protectRoute from "./middleware/accessRoute.js";
 
 import authRoutes from "./routes/auth.route.js";
 import movieRoutes from "./routes/movie.route.js";
-import tvRoutes from "./routes/movie.route.js";
+import tvRoutes from "./routes/tv.route.js";
 import searchRoutes from "./routes/search.route.js";
 
 dotenv.config();

@@ -34,7 +34,7 @@ export const getTvDetails = async (req, res) => {
   }
 }
 
-export const getSimilarTv = async (req, res) => {
+export const getSimilarTvs = async (req, res) => {
   try {
     const { id } = req.params;
     const data = await fetchTMDB(`https://api.themoviedb.org/3/tv/${id}/similar?language=en-US&page=1`);
@@ -45,7 +45,7 @@ export const getSimilarTv = async (req, res) => {
   }
 }
 
-export const getTvByCategory = async (req, res) => {
+export const getTvsByCategory = async (req, res) => {
   try {
     const { category } = req.params;
     console.log(req.params);

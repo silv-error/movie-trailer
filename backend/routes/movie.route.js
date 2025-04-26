@@ -1,6 +1,11 @@
 import express from "express";
-import accessRoute from "../middleware/accessRoute.js";
-import { getMovieDetails, getMoviesByCategory, getMovieTrailer, getSimilarMovies, getTrendingMovie } from "../controllers/movie.controller.js";
+import { 
+  getMovieDetails, 
+  getMoviesByCategory, 
+  getMovieTrailer, 
+  getSimilarMovies, 
+  getTrendingMovie 
+} from "../controllers/movie.controller.js";
 
 const router = express.Router();
 

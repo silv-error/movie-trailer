@@ -1,7 +1,6 @@
 import bcrypt from "bcryptjs";
 import User from "../models/user.model.js";
 import { generateTokenAndSetCookie } from "../libs/utils/generateTokenAndSetCookie.js";
-import { Buffer } from "node:buffer";
 
 export async function signup(req, res) {
   try {
@@ -32,11 +31,14 @@ export async function signup(req, res) {
       return res.status(400).json({ success: false, error: "Username is already registered" });
     }
 
+    const avatars = ["/avatar1.png", "/avatar2.png", "/avatar3.png", ];
+    const randomAvatar = avatars[Math.floor(Math.random() * avatars.length)];
+
     const newUser = new User({
       email,
       password: hashedPassword,
       username,
-      image: "/avatar1.png"
+      image: randomAvatar
     })
 
     generateTokenAndSetCookie(newUser._id, res);
@@ -53,11 +55,6 @@ export async function signup(req, res) {
 export async function login(req, res) {
   try {
     const { email, password } = req.body;
-    console.log(req.body);
-
-    const bodySize = Buffer.byteLength(JSON.stringify(req.body));
-    console.log(JSON.stringify(req.body));
-    console.log(bodySize)
 
     if (!email || !password) {
       return res.status(400).json({ success: false, error: "Please fill in all fields" });
@@ -92,3 +89,12 @@ export async function logout(req, res) {
   }
 }
 
+export async function getAuthUser(req, res) {
+  try {
+    const user = req.user;
+    res.status(200).json(user);
+  } catch (error) {
+    console.error(`Error in getAuthUser controller: ${error.message}`);
+    res.status(400).json({ success: false, error: "Internal server error" });
+  }
+}
