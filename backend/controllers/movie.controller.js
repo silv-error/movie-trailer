@@ -38,7 +38,7 @@ export const getSimilarMovies = async (req, res) => {
   try {
     const { id } = req.params;
     const data = await fetchTMDB(`https://api.themoviedb.org/3/movie/${id}/similar?language=en-US&page=1`);
-    res.json({similar: data});
+    res.json({similar: data.results});
   } catch (error) {
     console.error(`Error in getSimilarMovies controller ${error.message}`);
     res.status(500).json({ error: "Internal server error"});
@@ -48,7 +48,6 @@ export const getSimilarMovies = async (req, res) => {
 export const getMoviesByCategory = async (req, res) => {
   try {
     const { category } = req.params;
-    console.log(req.params);
     const data = await fetchTMDB(`https://api.themoviedb.org/3/movie/${category}?language=en-US&page=1`);
     res.json({category: data})
   } catch (error) {

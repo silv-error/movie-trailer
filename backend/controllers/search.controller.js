@@ -3,18 +3,25 @@ import { fetchTMDB } from "../services/tmdb.service.js";
 
 export const searchPerson = async (req, res) => {
   try {
-    const { query } = req.params;
-    const response = await fetchTMDB(`https://api.themoviedb.org/3/search/person?query=${query}&language=en-US&page=1`)
+    const user = req.user;
+    const { term } = req.query;
+    const response = await fetchTMDB(`https://api.themoviedb.org/3/search/person?query=${term}&language=en-US&page=1`)
     
-    await User.findByIdAndUpdate(req.user._id, { $push: {
-      searchHistory: {
-        id: response.results[0].id,
-        image: response.results[0].profile_path,
-        title: response.results[0].name,
-        searchType: "person",
-        createdAt: new Date(),
-      }
+    const historyExist = await User.findOne({ _id: user._id, searchHistory: {
+      $elemMatch: { id: response.results[0].id }
     }});
+
+    if(!historyExist) {
+      await User.findByIdAndUpdate(req.user._id, { $push: {
+        searchHistory: {
+          id: response.results[0].id,
+          image: response.results[0].profile_path,
+          title: response.results[0].name,
+          searchType: "person",
+          createdAt: new Date(),
+        }
+      }});
+    }
     
     res.status(200).json({content: response.results});
   } catch (error) {
@@ -25,19 +32,25 @@ export const searchPerson = async (req, res) => {
 
 export const searchMovie = async (req, res) => {
   try {
-    const { query } = req.params;
-    const response = await fetchTMDB(`https://api.themoviedb.org/3/search/movie?query=${query}&language=en-US&page=1`)
+    const user = req.user;
+    const { term } = req.query;
+    const response = await fetchTMDB(`https://api.themoviedb.org/3/search/movie?query=${term}&language=en-US&page=1`)
     
-    await User.findByIdAndUpdate(req.user._id, { $push: {
-      searchHistory: {
-        id: response.results[0].id,
-        image: response.results[0].poster_path,
-        title: response.results[0].title,
-        searchType: "movie",
-        createdAt: new Date(),
-      }
-    }});
+    const historyExist = await User.findOne({ _id: user._id, searchHistory: {
+      $elemMatch: { id: response.results[0].id
+    }}});
     
+    if(!historyExist) {
+      await User.findByIdAndUpdate(req.user._id, { $push: {
+        searchHistory: {
+          id: response.results[0].id,
+          image: response.results[0].poster_path,
+          title: response.results[0].title,
+          searchType: "movie",
+          createdAt: new Date(),
+        }
+      }});
+    }
     res.status(200).json({content: response.results});
   } catch (error) {
     console.error(`Error in searchMovie controller ${error.message}`);
@@ -47,18 +60,25 @@ export const searchMovie = async (req, res) => {
 
 export const searchTv = async (req, res) => {
   try {
-    const { query } = req.params;
-    const response = await fetchTMDB(`https://api.themoviedb.org/3/search/movie?query=${query}&language=en-US&page=1`)
+    const user = req.user;
+    const { term } = req.query;
+    const response = await fetchTMDB(`https://api.themoviedb.org/3/search/tv?query=${term}&language=en-US&page=1`)
     
-    await User.findByIdAndUpdate(req.user._id, { $push: {
-      searchHistory: {
-        id: response.results[0].id,
-        image: response.results[0].poster_path,
-        title: response.results[0].name,
-        searchType: "tv",
-        createdAt: new Date(),
-      }
+    const historyExist = await User.findOne({ _id: user._id, searchHistory: {
+      $elemMatch: { id: response.results[0].id }
     }});
+
+    if(!historyExist) {
+      await User.findByIdAndUpdate(req.user._id, { $push: {
+        searchHistory: {
+          id: response.results[0].id,
+          image: response.results[0].poster_path,
+          title: response.results[0].name,
+          searchType: "tv",
+          createdAt: new Date(),
+        }
+      }});
+    }
     
     res.status(200).json({content: response.results});
   } catch (error) {

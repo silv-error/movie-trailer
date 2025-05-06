@@ -3,8 +3,6 @@ import { Link, useNavigate } from 'react-router-dom'
 import { useAuthUser } from '../store/authUser';
 
 const SignupPage = () => {
-
-  const Navigate = useNavigate();
   const {searchParams} = new URL(document.location);
   const emailParam = searchParams.get("email");
 
