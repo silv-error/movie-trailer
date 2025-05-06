@@ -76,9 +76,9 @@ const AuthScreen = () => {
 			<div className='h-2 w-full bg-[#232323]' aria-hidden='true' />
 
 			{/* 1st section */}
-			<div className='py-10 bg-black text-white px-5 md:px-20'>
+			<div className='py-10 bg-black text-white'>
 				{trending?.length > 0 && (
-						<div className='mt-12 max-w-screen-2xl mx-auto relative'>
+						<div className='mt-12 mx-8 xl:mx-40 relative'>
 							<h3 className='text-2xl mb-4'>Trending Now</h3>
 							<div className='flex overflow-x-scroll scrollbar-hide gap-4 pb-4 group' ref={sliderRef}>
 								{trending.map((content, index) => {
@@ -100,13 +100,13 @@ const AuthScreen = () => {
 									);
 								})}
 								<ChevronRight
-									className='absolute top-1/2 -translate-y-1/2 right-8 lg:right-2 -mr-12 w-8 h-28
+									className='absolute top-1/2 -translate-y-1/2 right-8 lg:right-2 -mr-12 w-6 h-28
 											opacity-0 group-hover:opacity-100 transition-all duration-300 cursor-pointer
 											 bg-slate-700 hover:bg-slate-600 text-white rounded-md'
 									onClick={scrollRight}
 								/>
 								<ChevronLeft
-									className='absolute top-1/2 -translate-y-1/2 left-8 lg:left-2 -ml-12 w-8 h-28 opacity-0
+									className='absolute top-1/2 -translate-y-1/2 left-8 lg:left-2 -ml-12 w-6 h-28 opacity-0
 									group-hover:opacity-100 transition-all duration-300 cursor-pointer bg-slate-700 hover:bg-slate-600
 									text-white rounded-md'
 									onClick={scrollLeft}
@@ -117,8 +117,9 @@ const AuthScreen = () => {
 			</div>
 
 			{/* 2nd section */}
-			<div className='py-10 bg-black text-white flex justify-center'>
-				<div className="join join-vertical w-full mx-8 xl:mx-20 space-y-2">
+			<div className='py-10 bg-black text-white'>
+				<div className="join join-vertical mx-8 xl:mx-40 space-y-2">
+					<h2 className="text-2xl py-4">Frequently Asked Questions</h2>
 					<div className="collapse collapse-arrow join-item border-base-300 border bg-base-100">
 						<input type="radio" name="my-accordion-4" className="hover:bg-base-300"/>
 						<div className="collapse-title font-semibold text-2xl border-b border-black">What is Netflix?</div>
@@ -145,6 +146,23 @@ const AuthScreen = () => {
 						</div>
 					</div>
 				</div>
+			</div>
+
+			<div className='flex flex-col items-center justify-center py-10 bg-black text-white'>
+				<p className="py-4">Ready to watch? Enter your email to create or restart your membership.</p>
+				<form className='flex flex-col justify-center md:flex-row gap-4 w-1/2' onSubmit={handleFormSubmit}>
+					<input
+						type='email'
+						placeholder='Email address'
+						className='p-2 rounded flex-1 bg-black/80 border border-gray-700 max-w-lg'
+						value={email}
+						onChange={(e) => setEmail(e.target.value)}
+					/>
+					<button className='bg-red-600 text-xl lg:text-2xl px-2 lg:px-6 py-1 md:py-2 rounded flex justify-center items-center'>
+						Get Started
+						<ChevronRight className='size-8 md:size-10' />
+					</button>
+				</form>
 			</div>
 
 			{/* 3rd section */}

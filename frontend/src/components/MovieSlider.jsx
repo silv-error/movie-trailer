@@ -27,7 +27,6 @@ const MovieSlider = ({ category }) => {
     if(sliderRef.current) {
       sliderRef.current.scrollBy({left:-sliderRef.current.offsetWidth, behavior: "smooth"})
     }
-    console.log(sliderRef.current.offsetWidth)  
   }
   
   const scrollRight = () => {
