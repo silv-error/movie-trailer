@@ -80,14 +80,14 @@ const AuthScreen = () => {
 				{trending?.length > 0 && (
 						<div className='mt-12 mx-8 xl:mx-40 relative'>
 							<h3 className='text-2xl mb-4'>Trending Now</h3>
-							<div className='flex overflow-x-scroll scrollbar-hide gap-4 pb-4 group' ref={sliderRef}>
+							<div className='flex overflow-x-scroll scrollbar-hide gap-5 pb-4 group' ref={sliderRef}>
 								{trending.map((content, index) => {
 									if (content.poster_path === null) return null;
 									return (
 										<Link 
 											key={content.id} 
 											to={`/watch/${content.id}`} 
-											className='w-52 flex-none relative h-56'
+											className='w-52 flex-none relative'
 										>
 											<img
 												src={IMAGE_BASE_URL(content.backdrop_path)}
@@ -95,7 +95,7 @@ const AuthScreen = () => {
 												className='object-cover w-44 h-56 rounded-md mx-auto'
 											/>
 											<div className="-translate-y-28 translate-x-1 text-[80px] font-bold">{index + 1}</div>	
-											{/* <h4 className='text-lg font-semibold'>{content.title || content.name}</h4> */}
+											<h4 className='text-lg font-semibold -mt-28 ml-4'>{content.title || content.name}</h4>
 										</Link>
 									);
 								})}
